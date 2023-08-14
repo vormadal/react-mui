@@ -42,7 +42,7 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "test": "cypress run",
+    "test": "cypress run --component",
     "test:watch": "cypress open --component",
     "build": "rollup -c",
     "start": "rollup -c -w",
