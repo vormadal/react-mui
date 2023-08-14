@@ -31,20 +31,7 @@ function Loading<T>({ children, loading, error, retry, data, showReloads }: Prop
         {error}
       </Alert>
     )
-  if (data && children)
-    return (
-      <>
-        {children(data)}
-        {loading && (
-          <div style={{ position: 'absolute' }}>
-            <Spinner
-              show
-              size={SpinnerSize.small}
-            />
-          </div>
-        )}
-      </>
-    )
+  if (data && children) return children(data)
   return null
 }
 
