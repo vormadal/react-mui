@@ -3,7 +3,11 @@ dist
 .storybook
 .gitignore
 .prettierrc
-rollup.config.js
 tsconfig.json
 **/*.test.*
 __snapshopts__
+src
+.github
+.gitignore
+*.config.*
+*.lock
