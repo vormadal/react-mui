@@ -1,21 +1,30 @@
 import { CircularProgress } from '@mui/material'
 
-export enum SpinnerSize {
-  'small',
-  'medium',
-  'large'
-}
-type Props = { show?: boolean; size?: SpinnerSize }
+type SpinnerSize = 'small' | 'medium' | 'large'
 
-const Spinner = ({ show, size }: Props) => {
+interface Props {
+  show?: boolean
+  size?: SpinnerSize
+}
+
+function Spinner({ show, size }: Props) {
   if (!show) return null
 
-  const sizes = {
-    [SpinnerSize.small]: 20,
-    [SpinnerSize.medium]: 40,
-    [SpinnerSize.large]: 60
+  let computedSize = 40
+  switch (size) {
+    case 'small':
+      computedSize = 20
+      break
+    case 'medium':
+      computedSize = 40
+      break
+    case 'large':
+      computedSize = 60
+      break
+    default:
+      computedSize = 40
   }
-  return <CircularProgress size={sizes[size !== undefined ? size : SpinnerSize.medium]} />
+  return <CircularProgress size={computedSize} />
 }
 
 export default Spinner

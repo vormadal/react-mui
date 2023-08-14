@@ -22,7 +22,7 @@ import * as React from 'react'
 
 interface Props {
   title?: string
-  Icon?: (props: { sx: SxProps<Theme> }) => React.ReactNode
+  Icon?: (props: { sx: SxProps<Theme> }) => JSX.Element
   pages?: PageLink[]
   avatarOptions?: PageLink[]
   user?: UserInfo
