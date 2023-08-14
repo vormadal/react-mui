@@ -5,7 +5,7 @@ interface Props {
   isLoggedIn: boolean
 }
 
-const ProtectedRoute = ({ isLoggedIn, children }: Props) => {
+function ProtectedRoute({ isLoggedIn, children }: Props) {
   const location = useLocation()
 
   if (!isLoggedIn) {

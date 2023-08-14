@@ -1,10 +1,13 @@
 import { CircularProgress } from '@mui/material'
 
-export type SpinnerSize = 'small' | 'medium' | 'large'
+type SpinnerSize = 'small' | 'medium' | 'large'
 
-type Props = { show?: boolean; size?: SpinnerSize }
+interface Props {
+  show?: boolean
+  size?: SpinnerSize
+}
 
-const Spinner = ({ show, size }: Props) => {
+function Spinner({ show, size }: Props) {
   if (!show) return null
 
   let computedSize = 40

@@ -10,7 +10,7 @@ interface SnackbarMessage {
   options?: MessageOptions
 }
 
-const Toaster = () => {
+function Toaster() {
   const [, setActions] = useContext(ToastContext)
   const [snackPack, setSnackPack] = useState<readonly SnackbarMessage[]>([])
   const [open, setOpen] = useState(false)

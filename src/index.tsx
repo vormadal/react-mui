@@ -5,8 +5,8 @@ import Navigation from './components/Navigation'
 import ProtectedRoute from './components/ProtectedRoute'
 import { ToastProvider } from './components/toaster/ToastProvider'
 import { useData } from './hooks/useData'
+import { useRequest } from './hooks/useRequest'
 import { useToast } from './hooks/useToast'
 
-export { Loading, Navigation, ProtectedRoute, ToastProvider, useData, useToast }
+export { Loading, Navigation, ProtectedRoute, ToastProvider, useData, useToast, useRequest }
 export type { PageLink, UserInfo }
-
