@@ -6,8 +6,11 @@ dist
 tsconfig.json
 **/*.test.*
 __snapshopts__
-src
+/src
 .github
 .gitignore
 *.config.*
 *.lock
+*.cy.*
+cypress
+coverage
