@@ -2,7 +2,7 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 interface Props {
   children?: React.ReactElement
-  isLoggedIn: boolean
+  isLoggedIn?: boolean
 }
 
 function ProtectedRoute({ isLoggedIn, children }: Props) {

@@ -17,8 +17,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "declaration": true
+    "declaration": true,
+    "declarationMap": true
   },
-  "include": ["src", "cypress"],
+  "include": ["src", "cypress", "index.tsx"],
   "exclude": ["node_modules", "dist", "example", "rollup.config.mjs"]
 }
