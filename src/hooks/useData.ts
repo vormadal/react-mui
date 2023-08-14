@@ -21,7 +21,7 @@ function token() {
 }
 
 export function useData<Data, Args extends any[] = []>(dataFunc: DataFunc<Data, Args>): UseDataReturn<Data, Args>
-
+export function useData<Data, Args extends any[] = []>(dataFunc: DataFunc<Data, Args>, initialArgs?: Args): UseDataReturn<Data, Args>
 export function useData<Data, Args extends any[] = []>(
   dataFunc: DataFunc<Data, Args>,
   initialArgs?: Args
