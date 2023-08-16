@@ -7,7 +7,7 @@ describe('<Loading />', () => {
     cy.mount(<Loading loading />)
     cy.get('.MuiCircularProgress-root').should('exist')
   })
-  it('Show data only when loading and containing data', () => {
+  it('Show data when loading and containing data', () => {
     cy.mount(
       <Loading
         loading

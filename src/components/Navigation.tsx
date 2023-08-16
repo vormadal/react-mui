@@ -11,7 +11,9 @@ import {
   SxProps,
   Theme,
   Toolbar,
-  Typography
+  Typography,
+  useMediaQuery,
+  useTheme
 } from '@mui/material'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -70,6 +72,8 @@ function NavigationBar({ title, Icon, pages, avatarOptions, user, isLoggedIn, dr
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
   const [showDrawer, setShowDrawer] = useState(false)
+  const theme = useTheme()
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('sm'))
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     if (drawer) {
@@ -90,8 +94,10 @@ function NavigationBar({ title, Icon, pages, avatarOptions, user, isLoggedIn, dr
     setAnchorElUser(null)
   }
 
-  const showMenu = !!(pages && pages.length)
+  const filteredPages = (pages || []).filter((x) => !x.protected || isLoggedIn)
+  const showMenu = !!filteredPages.length
   const showAvatarOptions = !!(avatarOptions && avatarOptions.length)
+
   return (
     <>
       <AppBar position="static">
@@ -101,29 +107,32 @@ function NavigationBar({ title, Icon, pages, avatarOptions, user, isLoggedIn, dr
         >
           <Toolbar disableGutters>
             {/* show on large screen */}
-            {Icon && <Icon sx={{ display: { xs: 'none', sm: 'flex' }, mr: 1, ml: 2 }} />}
-            <Typography
-              variant="h6"
-              noWrap
-              component={Link}
-              to="/"
-              sx={{
-                mr: 2,
-                ml: 1,
-                display: { xs: 'none', sm: 'flex' },
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
-              {title}
-            </Typography>
+            {Icon && isLargeScreen && <Icon sx={{ display: 'flex', mr: 1, ml: 2 }} />}
+            {isLargeScreen && (
+              <Typography
+                variant="h6"
+                noWrap
+                component={Link}
+                to="/"
+                sx={{
+                  mr: 2,
+                  ml: 1,
+                  display: 'flex',
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'inherit',
+                  textDecoration: 'none'
+                }}
+              >
+                {title}
+              </Typography>
+            )}
 
             {/* Navigation menu (burger menu) show on small screen */}
-            {showMenu && (
-              <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
+            {showMenu && !isLargeScreen && (
+              <Box sx={{ flexGrow: 1, display: 'flex' }}>
                 <IconButton
+                  data-cy="navbar-menu-button"
                   size="large"
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
@@ -149,67 +158,68 @@ function NavigationBar({ title, Icon, pages, avatarOptions, user, isLoggedIn, dr
                   open={Boolean(anchorElNav)}
                   onClose={handleCloseNavMenu}
                   sx={{
-                    display: { xs: 'block', sm: 'none' }
+                    display: 'block'
                   }}
                 >
-                  {(pages || [])
-                    .filter((x) => isLoggedIn || !x.protected)
-                    .map((page) => (
-                      <MenuItem
-                        key={page.name}
-                        component={Link}
-                        to={page.path}
-                        onClick={handleCloseNavMenu}
-                      >
-                        <Typography textAlign="center">{page.name}</Typography>
-                      </MenuItem>
-                    ))}
+                  {filteredPages.map((page) => (
+                    <MenuItem
+                      data-cy="navbar-menu-item"
+                      key={page.name}
+                      component={Link}
+                      to={page.path}
+                      onClick={handleCloseNavMenu}
+                    >
+                      <Typography textAlign="center">{page.name}</Typography>
+                    </MenuItem>
+                  ))}
                 </Menu>
               </Box>
             )}
             {/* show on small screen */}
-            {Icon && <Icon sx={{ display: { xs: 'flex', sm: 'none' }, mr: 1 }} />}
+            {!isLargeScreen && (
+              <>
+                {Icon && <Icon sx={{ display: 'flex', mr: 1 }} />}
 
-            {/* title - show on small screen */}
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', sm: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'inherit',
-                textDecoration: 'none'
-              }}
-            >
-              {title}
-            </Typography>
-
+                {/* title - show on small screen */}
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="a"
+                  href=""
+                  sx={{
+                    mr: 2,
+                    display: 'flex',
+                    flexGrow: 1,
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.2rem',
+                    color: 'inherit',
+                    textDecoration: 'none'
+                  }}
+                >
+                  {title}
+                </Typography>
+              </>
+            )}
             {/* pages link - show on large screens */}
-            {!drawer && (
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
-                {(pages || [])
-                  .filter((x) => isLoggedIn || !x.protected)
-                  .map((page) => (
-                    <Button
-                      key={page.name}
-                      onClick={handleCloseNavMenu}
-                      component={Link}
-                      to={page.path}
-                      variant="text"
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                      {page.name}
-                    </Button>
-                  ))}
+            {!drawer && isLargeScreen && (
+              <Box sx={{ flexGrow: 1, display: 'flex' }}>
+                {filteredPages.map((page) => (
+                  <Button
+                    key={page.name}
+                    data-cy="navbar-menu-item"
+                    onClick={handleCloseNavMenu}
+                    component={Link}
+                    to={page.path}
+                    variant="text"
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    {page.name}
+                  </Button>
+                ))}
               </Box>
             )}
-            {/* avatar if logged - show on large AND small screens */}
+            {/* avatar if logged in - show on large AND small screens */}
             {isLoggedIn && (
               <Box sx={{ flexGrow: 0 }}>
                 <IconButton
@@ -261,7 +271,7 @@ function NavigationBar({ title, Icon, pages, avatarOptions, user, isLoggedIn, dr
           drawerWidth={drawerWidth || defaultDrawerWidth}
           mobileOpen={showDrawer}
           onMobileClose={() => setShowDrawer(false)}
-          items={pages}
+          items={filteredPages}
         >
           {children}
         </ResponsiveDrawer>
