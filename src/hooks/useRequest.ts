@@ -8,6 +8,12 @@ interface RequestStatus {
 
 type RequestAction = <T>(action: () => T | Promise<T>) => Promise<{ success: boolean; data: T | undefined }>
 
+/**
+ *
+ * @returns an array with exactly two values:
+ * 1. object with `loading` and `error` state
+ * 2. function used to submit data
+ */
 export function useRequest(): [RequestStatus, RequestAction] {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

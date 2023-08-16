@@ -20,7 +20,26 @@ function token() {
   return rand() + rand() // to make it longer
 }
 
+/**
+ * The useData hook can be used to make it easier to handle loading and error state when fetching data from an API.
+ * The hook takes a function and an optional argument array as a parameter which will be forwarded to the data function.
+ * The hook returns an array with three values:
+ * 1. an object containing `loading` and `error` state and `data` which is loaded by the provided function.
+ * 2. a function which allows you to trigger reloads, with or without updated arguments
+ * 3. a function which allows you to set the data value directly. 
+ * @param dataFunc the function that loads and returns data
+ */
 export function useData<Data, Args extends any[] = []>(dataFunc: DataFunc<Data, Args>): UseDataReturn<Data, Args>
+/**
+ * The useData hook can be used to make it easier to handle loading and error state when fetching data from an API.
+ * The hook takes a function and an optional argument array as a parameter which will be forwarded to the data function.
+ * The hook returns an array with three values:
+ * 1. an object containing `loading` and `error` state and `data` which is loaded by the provided function.
+ * 2. a function which allows you to trigger reloads, with or without updated arguments
+ * 3. a function which allows you to set the data value directly.
+ * @param dataFunc the function that loads and returns data
+ * @param initialArgs array of arguments which will be passed on to the dateFunc
+ */
 export function useData<Data, Args extends any[] = []>(dataFunc: DataFunc<Data, Args>, initialArgs?: Args): UseDataReturn<Data, Args>
 export function useData<Data, Args extends any[] = []>(
   dataFunc: DataFunc<Data, Args>,

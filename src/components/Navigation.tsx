@@ -21,13 +21,46 @@ import ResponsiveDrawer from './Drawer'
 import * as React from 'react'
 
 interface Props {
+  /**
+   * The app title shown in the middle of the navigation bar
+   */
   title?: string
+
+  /**
+   * A component which has an sx props. For best results you should only provide icons from MUI
+   * @param props
+   * @returns
+   */
   Icon?: (props: { sx: SxProps<Theme> }) => JSX.Element
+
+  /**
+   * A list of the links you want to show in the menu or drawer
+   */
   pages?: PageLink[]
+
+  /**
+   * A list of the links you want to show on the avatar (only visible when `isLoggedIn` is true)
+   */
   avatarOptions?: PageLink[]
+
+  /**
+   * The information used for the avatar like image and name
+   */
   user?: UserInfo
+
+  /**
+   * If **true** avatar and `pages` specified as protected are shown
+   */
   isLoggedIn?: boolean
+
+  /**
+   * If **true** a drawer is used for the burger menu instead of a simple menu.
+   */
   drawer?: boolean
+
+  /**
+   * The width of the drawer when open
+   */
   drawerWidth?: number
   children?: React.ReactNode
 }
